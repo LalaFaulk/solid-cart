@@ -42,9 +42,7 @@ CREATE TABLE IF NOT EXISTS 	`shopping-cart`.`discount` (
 	`prodid` VARCHAR(45) NOT NULL,
     `tid` VARCHAR(45) NOT NULL,
     `pdiscount` DECIMAL(3,2) NULL DEFAULT NULL,
-    `prodprice` DECIMAL(12,2) NULL DEFAULT NULL,
     `day` DATETIME NULL DEFAULT NULL,
-    `pqty` INT NULL DEFAULT NULL,
     PRIMARY KEY (`prodid`,`tid`),
     CONSTRAINT `pid`
 		FOREIGN KEY (`prodid`)
