@@ -32,6 +32,34 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+-- -----------------------------------------------------
+-- Table `shopping-cart`.`discount`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `shopping-cart`.`discount` ;
+
+CREATE TABLE IF NOT EXISTS 	`shopping-cart`.`discount` (
+	`prodid` VARCHAR(45) NOT NULL,
+    `tid` VARCHAR(45) NOT NULL,
+    `pdiscount` DECIMAL(3,2) NULL DEFAULT NULL,
+    `prodprice` DECIMAL(12,2) NULL DEFAULT NULL,
+    `day` DATETIME NULL DEFAULT NULL,
+    `pqty` INT NULL DEFAULT NULL,
+    PRIMARY KEY (`prodid`,`tid`),
+    CONSTRAINT `pid`
+		FOREIGN KEY (`prodid`)
+        REFERENCES `shopping-cart`.`product` (`pid`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT `tid`
+		FOREIGN KEY (`tid`)
+        REFERENCES `shopping-cart`.`transactions` (`transid`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
 
 -- -----------------------------------------------------
 -- Table `shopping-cart`.`orders`
