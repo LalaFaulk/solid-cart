@@ -6,4 +6,5 @@ public interface DiscountService {
 	
 	public String calculateDiscount(String prodId, double prodDiscount, double prodPrice);
 
+	public String updateProductPrice(String prodId, double discountPrice);
 }
