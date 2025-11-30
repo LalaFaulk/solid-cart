@@ -1,15 +1,16 @@
 package com.shashi.service;
 
 import com.shashi.beans.DiscountBean;
+import com.shashi.beans.ProductBean;
 
 public interface DiscountService {
 	
-	public String calculateDiscount(String prodId, double prodDiscount, double regPrice);
-
-	public String addProduct(String prodId, double prodDiscount, double discountPrice);
+	public String addProduct(ProductBean discountedProduct);
 	
 	public String removeProduct(String prodId, double prodDiscount);
 	
-	public String updateProductPrice(String prodId, double discountPrice);
+	public String calcDiscount(DiscountBean calculatedDiscount);
+	
+	public String updateProductPrice(ProductBean discountedProduct);
 	
 }
