@@ -14,7 +14,7 @@ public class DiscountBean implements Serializable {
 	public DiscountBean() {
 	}
 	
-	public DiscountBean(String prodId, String transactionId, double prodDiscount, double prodPrice, Timestamp orderDate, double prodPrice) {
+	public DiscountBean(String prodId, String transactionId, double prodDiscount, Timestamp orderDate, double prodPrice) {
 		super();
 		this.prodId = prodId;
 		this.transactionId = transactionId;
