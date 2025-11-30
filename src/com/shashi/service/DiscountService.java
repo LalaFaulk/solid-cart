@@ -9,7 +9,7 @@ public interface DiscountService {
 	
 	public String removeProduct(String prodId, DiscountBean regPrice);
 	
-	public double calcDiscount(String prodId, DiscountBean updatedProduct);
+	public double setDiscount(String prodId, DiscountBean updatedProduct);
 		
 	public String updateProductPrice(DiscountBean updatedProduct);
 	

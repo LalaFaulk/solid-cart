@@ -91,7 +91,7 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 	
 	@Override
-	public double calcDiscount(String prodId, DiscountBean updatedProduct) {
+	public double setDiscount(String prodId, DiscountBean updatedProduct) {
 		double currentPrice = updatedProduct.getRegPrice();
 		double discountPrice = currentPrice - (currentPrice * updatedProduct.getProdDiscount());
 		
