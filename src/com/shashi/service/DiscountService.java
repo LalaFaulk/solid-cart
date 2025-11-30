@@ -5,12 +5,12 @@ import com.shashi.beans.ProductBean;
 
 public interface DiscountService {
 	
-	public String addProduct(DiscountBean discountedProduct);
+	public String addProduct(DiscountBean updatedProduct, ProductBean baseProduct);
 	
-	public String removeProduct(String prodId, double regPrice);
+	public String removeProduct(String prodId, DiscountBean regPrice);
 	
-	public String calcDiscount(String prodId, double regPrice);
-	
-	public String updateProductPrice(String prodId, double currentPrice);
+	public double calcDiscount(String prodId, DiscountBean updatedProduct);
+		
+	public String updateProductPrice(DiscountBean updatedProduct);
 	
 }
