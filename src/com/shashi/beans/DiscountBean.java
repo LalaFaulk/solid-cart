@@ -9,18 +9,20 @@ public class DiscountBean implements Serializable {
 	private String transactionId;
 	private double prodDiscount;
 	private Timestamp orderDate;
-	private double prodPrice;
+	private double regPrice;
+	private double discountPrice;
 	
 	public DiscountBean() {
 	}
 	
-	public DiscountBean(String prodId, String transactionId, double prodDiscount, Timestamp orderDate, double prodPrice) {
+	public DiscountBean(String prodId, String transactionId, double prodDiscount, Timestamp orderDate, double regPrice, double discountPrice) {
 		super();
 		this.prodId = prodId;
 		this.transactionId = transactionId;
 		this.prodDiscount = prodDiscount;
 		this.orderDate = orderDate;
-		this.prodPrice = prodPrice;
+		this.regPrice = regPrice;
+		this.discountPrice = discountPrice;
 	}
 	
 	public String getProdId() {
@@ -55,12 +57,20 @@ public class DiscountBean implements Serializable {
 		this.orderDate = orderDate;
 	}
 	
-	public double getProdPrice() {
-		return prodPrice;
+	public double getRegPrice() {
+		return regPrice;
 	}
 	
-	public void setProdPrice(double prodPrice) {
-		this.prodPrice = prodPrice;
+	public void setRegPrice(double regPrice) {
+		this.regPrice = regPrice;
+	}
+	
+	public double getDiscountPrice() {
+		return discountPrice;
+	}
+	
+	public void setDiscountPrice(double discountPrice) {
+		this.discountPrice = discountPrice;
 	}
 
 }
