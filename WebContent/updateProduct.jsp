@@ -24,6 +24,7 @@
 	String pwd = (String) session.getAttribute("password");
 	String prodid = request.getParameter("prodid");
 	ProductBean product = new ProductServiceImpl().getProductDetails(prodid);
+	DiscountBean discount = new DiscountBean();
 	if (prodid == null || product == null) {
 		response.sendRedirect("updateProductById.jsp?message=Please Enter a valid product Id");
 		return;
@@ -74,6 +75,18 @@
 							placeholder="Enter Product Name" name="name" class="form-control"
 							value="<%=product.getProdName()%>" id="last_name" required>
 					</div>
+					<!--  Used to insert discounts when added to database -->
+					<div class="col-md-6 form-group">
+					<!-- Formatting the input came from an AI answer based on this query: 
+							https://www.google.com/search?q=html+input+type+decimal&rlz=1C1ONGR_enUS1088US1088&oq=html
+							+input+type+as+de&gs_lcrp=EgZjaHJvbWUqCAgBEAAYFhgeMgYIABBFGDkyCAgBEAAYFhgeMggIAhAAGBYYHjII
+							CAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB
+							7SAQg2MDg3ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8
+					-->
+						<label for="last_name">Product Discount</label> <input type="number"
+							placeholder="Enter Discount (as a Decimal)" name="discount" step="0.01" class="form-control"
+							size="3" max="1.0" min="0.0" value="<%=discount.getProdDiscount()%>" id=last_name required>
+					</div>
 					<div class="col-md-6 form-group">
 						<%
 						String ptype = product.getProdType();
@@ -81,20 +94,21 @@
 						<label for="producttype">Product Type</label> <select name="type"
 							id="producttype" class="form-control" required>
 							<option value="mobile"
-								<%="mobile".equalsIgnoreCase(ptype) ? "selected" : ""%>>MOBILE</option>
+								<%="mobile".equalsIgnoreCase(ptype) ? "selected" : ""%>>Cell Phone</option>
 							<option value="tv"
-								<%="tv".equalsIgnoreCase(ptype) ? "selected" : ""%>>TV</option>
+								<%="tv".equalsIgnoreCase(ptype) ? "selected" : ""%>>Television</option>
 							<option value="camera"
-								<%="camera".equalsIgnoreCase(ptype) ? "selected" : ""%>>CAMERA</option>
+								<%="camera".equalsIgnoreCase(ptype) ? "selected" : ""%>>Camera</option>
 							<option value="laptop"
-								<%="laptop".equalsIgnoreCase(ptype) ? "selected" : ""%>>LAPTOP</option>
+								<%="laptop".equalsIgnoreCase(ptype) ? "selected" : ""%>>Laptop</option>
 							<option value="tablet"
-								<%="tablet".equalsIgnoreCase(ptype) ? "selected" : ""%>>TABLET</option>
+								<%="tablet".equalsIgnoreCase(ptype) ? "selected" : ""%>>Tablet</option>
 							<option value="speaker"
-								<%="speaker".equalsIgnoreCase(ptype) ? "selected" : ""%>>SPEAKER</option>
+								<%="speaker".equalsIgnoreCase(ptype) ? "selected" : ""%>>Speaker</option>
+							<option value="kitchen"
+								<%="kitchen".equalsIgnoreCase(ptype) ? "selected" : ""%>>Kitchen Appliance</option>	
 							<option value="other"
-								<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>Some
-								Other Appliances</option>
+								<%="other".equalsIgnoreCase(ptype) ? "selected" : ""%>>Miscellaneous</option>
 						</select>
 					</div>
 				</div>
@@ -106,7 +120,7 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label for="last_name">Unit Price</label> <input type="number"
-							value="<%=product.getProdPrice()%>"
+							value="<%=discount.getDiscountPrice()%>"
 							placeholder="Enter Unit Price" name="price" class="form-control"
 							id="last_name" required>
 					</div>
