@@ -24,7 +24,7 @@
 	String pwd = (String) session.getAttribute("password");
 	String prodid = request.getParameter("prodid");
 	ProductBean product = new ProductServiceImpl().getProductDetails(prodid);
-	DiscountBean discount = new DiscountBean();
+		
 	if (prodid == null || product == null) {
 		response.sendRedirect("updateProductById.jsp?message=Please Enter a valid product Id");
 		return;
@@ -83,10 +83,15 @@
 							CAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB
 							7SAQg2MDg3ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8
 					-->
-						<label for="last_name">Product Discount</label> <input type="number"
-							placeholder="Enter Discount (as a Decimal)" name="discount" step="0.01" class="form-control"
-							size="3" max="1.0" min="0.0" value="<%=discount.getProdDiscount()%>" id=last_name required>
+						<label for="last_name">Product Discount</label> <select name="discount" id="pdiscount"
+						class="form-control" required>
+						<option value="thanksgiving">Thanksgiving (40% Off)</option>
+						<option value="clearance">Clearance (60% Off)</option>
+						<option value="none">None</option>
+						</select>
 					</div>
+					
+					
 					<div class="col-md-6 form-group">
 						<%
 						String ptype = product.getProdType();
@@ -120,7 +125,7 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label for="last_name">Unit Price</label> <input type="number"
-							value="<%=discount.getDiscountPrice()%>"
+							value="<%=product.getProdPrice()%>"
 							placeholder="Enter Unit Price" name="price" class="form-control"
 							id="last_name" required>
 					</div>
