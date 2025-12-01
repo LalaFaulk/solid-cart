@@ -6,10 +6,8 @@ import com.shashi.beans.DiscountBean;
 import com.shashi.beans.ProductBean;
 
 public interface DiscountService {
-	
-	public boolean computeDiscount(String prodId, double prodDiscount, double regPrice);
-	
-	public String addProduct(DiscountBean discountProduct);
+		
+	public String addProduct(ProductBean product, double prodDiscount);
 	
 	public String removeProduct(String prodId);
 	
