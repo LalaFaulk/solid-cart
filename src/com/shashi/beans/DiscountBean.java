@@ -7,17 +7,17 @@ public class DiscountBean implements Serializable {
 	private String prodId;
 	private double prodDiscount;
 	private double regPrice;
-	private double discountPrice;
+	private double salePrice;
 	
 	public DiscountBean() {
 	}
 	
-	public DiscountBean(String prodId, double prodDiscount, double regPrice, double discountPrice) {
+	public DiscountBean(String prodId, double prodDiscount, double regPrice, double salePrice) {
 		super();
 		this.prodId = prodId;
 		this.prodDiscount = prodDiscount;
 		this.regPrice = regPrice;
-		this.discountPrice = discountPrice;
+		this.salePrice = salePrice;
 	}
 	
 	public String getProdId() {
@@ -47,11 +47,11 @@ public class DiscountBean implements Serializable {
 	}
 	
 	public double getDiscountPrice() {
-		return discountPrice;
+		return salePrice;
 	}
 	
-	public void setDiscountPrice(double discountPrice) {
-		this.discountPrice = discountPrice;
+	public void setDiscountPrice(double salePrice) {
+		this.salePrice = salePrice;
 	}
 
 }
