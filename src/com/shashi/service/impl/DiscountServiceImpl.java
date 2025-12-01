@@ -17,31 +17,24 @@ import com.shashi.utility.MailMessage;
 
 
 public class DiscountServiceImpl implements DiscountService {
-	
-	@Override
-	public String addProduct(DiscountBean updatedProduct, ProductBean baseProduct) {
+
+	public String addProduct(ProductBean product, double prodDiscount) {
 		String status = "Product Addition Failed!";
+		
+		double salePrice = product.getProdPrice() - (product.getProdPrice() * prodDiscount);
 		
 		Connection con = DBUtil.provideConnection();
 		
-		PreparedStatement ps = null;		
-
+		PreparedStatement ps = null;
+		
 		try {
 			
 			ps = con.prepareStatement("insert into discount values(?,?,?,?)");
+			ps.setString(1, product.getProdId());
+			ps.setDouble(2, prodDiscount);
+			ps.setDouble(3, product.getProdPrice());
+			ps.setDouble(4, salePrice);
 			
-			ps.setString(1, baseProduct.getProdId());
-			ps.setDouble(2, updatedProduct.getProdDiscount());
-			ps.setDouble(3, baseProduct.getProdPrice());
-			ps.setDouble(4, updatedProduct.getDiscountPrice());
-			
-			int i = ps.executeUpdate();
-			
-			if (i > 0) {
-				
-				status = "Product Added Successfully!";
-			}
-
 		} catch (SQLException e) {
 			status = "Error: " + e.getMessage();
 			e.printStackTrace();
@@ -49,13 +42,11 @@ public class DiscountServiceImpl implements DiscountService {
 		
 		DBUtil.closeConnection(con);
 		DBUtil.closeConnection(ps);
-		
+
 		return status;
-		
 	}
 	
-	@Override
-	public String removeProduct(String prodId, DiscountBean regPrice) {
+	public String removeProduct(String prodId) {
 		String status = "Product Removal Failed!";
 		
 		Connection con = DBUtil.provideConnection();
@@ -64,85 +55,61 @@ public class DiscountServiceImpl implements DiscountService {
 		PreparedStatement ps2 = null;
 		
 		try {
-			ps = con.prepareStatement("delete from discount where pid=?");
-			ps.setString(1,  prodId);
+			ps = con.prepareStatement("update product join discount on product.pid=discount.prodid set product.pprice=discount.regprice where pid=?");
+			ps.setString(1, prodId);
 			
 			int i = ps.executeUpdate();
 			
 			if (i > 0) {
+				ps2 = con.prepareStatement("delete from discount where prodid=?");
+				
+				ps2.setString(1, prodId);
+				
+				ps2.executeUpdate();
+				
 				status = "Product Removed Successfully!";
-				
-				ps2 = con.prepareStatement("update product set pprice=? where pid=?");
-				
-				ps2.setDouble(1, regPrice.getRegPrice());
-				ps2.setString(2, prodId);
-				
 			}
 			
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			status = "Error: " + e.getMessage();
 			e.printStackTrace();
 		}
-		
-		DBUtil.closeConnection(con);
-		DBUtil.closeConnection(ps);
-		
-		return status;
-	}
-	
-	@Override
-	public double setDiscount(String prodId, DiscountBean updatedProduct) {
-		double currentPrice = updatedProduct.getRegPrice();
-		double discountPrice = currentPrice - (currentPrice * updatedProduct.getProdDiscount());
-		
-		Connection con = DBUtil.provideConnection();
-		
-		PreparedStatement ps = null;
-		
-		try {
-			
-			ps = con.prepareStatement("update discount set discountprice=? where prodid=?");
-			
-			ps.setDouble(1, discountPrice);
-			ps.setString(2, prodId);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return discountPrice;
-		
-	}
-	
-	@Override
-	public String updateProductPrice(DiscountBean updatedProduct) {
-		String status = "Price Updation Failed!";
-		
-		Connection con = DBUtil.provideConnection();
-		
-		PreparedStatement ps = null;
-		
-		try {
-			ps = con.prepareStatement("update product set pprice=? where pid=?");
-			
-			ps.setDouble(1, updatedProduct.getDiscountPrice());
-			ps.setString(2, updatedProduct.getProdId());
-			
-			int k = ps.executeUpdate();
-			
-			if (k > 0) {
-				status = "Price Updated Successfully!";
-			}
-		} catch (SQLException e) {
-			status = "Error: " + e.getMessage();
-			e.printStackTrace();
-		}
-		
-		DBUtil.closeConnection(con);
-		DBUtil.closeConnection(ps);
-		
-		return status;
-		
-	}
 
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		DBUtil.closeConnection(ps2);
+
+		return status;
+		
+	}
+	
+	public String updateProduct(ProductBean updatedProduct) {
+		String status = "Product Updation Failed!";
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		
+		try {
+			
+			ps = con.prepareStatement("update product join discount on product.pid=discount.prodid set product.pprice=discount.saleprice where pid=?");
+			
+			ps.setString(1, updatedProduct.getProdId());
+			
+			int i = ps.executeUpdate();
+			
+			if (i > 0) 
+				status = "Product Updated Successfully";
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return status;
+		
+	}
+	
 }
