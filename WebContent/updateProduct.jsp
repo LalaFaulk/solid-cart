@@ -24,6 +24,7 @@
 	String pwd = (String) session.getAttribute("password");
 	String prodid = request.getParameter("prodid");
 	ProductBean product = new ProductServiceImpl().getProductDetails(prodid);
+	DiscountBean discount = new DiscountServiceImpl().getProductDetails(prodid);
 		
 	if (prodid == null || product == null) {
 		response.sendRedirect("updateProductById.jsp?message=Please Enter a valid product Id");
@@ -83,11 +84,17 @@
 							CAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB
 							7SAQg2MDg3ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8
 					-->
-						<label for="last_name">Product Discount</label> <select name="discount" id="pdiscount"
+						<% 
+						String pdiscount = discount.getDiscountType();
+						%>
+						<label for="last_name">Product Discount</label><select name="discount" id="last_name"
 						class="form-control" required>
-						<option value="thanksgiving">Thanksgiving (40% Off)</option>
-						<option value="clearance">Clearance (60% Off)</option>
-						<option value="none">None</option>
+						<option value="thanksgiving"
+						<%="thanksgiving".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>Thanksgiving</option>
+						<option value="clearance"
+						<%="clearance".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>Clearance</option>
+						<option value="none"
+						<%="none".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>None</option>
 						</select>
 					</div>
 					
