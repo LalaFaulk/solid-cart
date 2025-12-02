@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.shashi.beans.DiscountBean;
+import com.shashi.beans.ProductBean;
 
 import com.shashi.service.DiscountService;
 import com.shashi.utility.DBUtil;
@@ -13,10 +14,47 @@ import com.shashi.utility.DBUtil;
 
 
 public class DiscountServiceImpl implements DiscountService {
+	
+	@Override
+	public String addProduct(ProductBean newProduct, String discountType) {
+		String status = "Product Addition Failed!";
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		
+		try {
+			ps = con.prepareStatement("insert into discount values(?,?,?,?)");
+			ps.setString(1, newProduct.getProdId());
+			ps.setString(2, "None");
+			ps.setDouble(3, 0.0);
+			ps.setDouble(4, newProduct.getProdPrice());
+			
+			int k = ps.executeUpdate();
+			
+			if (k > 0) {
+				status = "Product Added Successfully!";
+								
+				status = updateProductPrice(newProduct.getProdId(), discountType);
+				
+			} else {
+				status = "Product Additon Failed!";
+			}
+			
+		} catch (SQLException e) {
+			status = "Error: " + e.getMessage();
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return status;
+	}
 
 	@Override
 	public String updateProductPrice(String prodId, String discountType) {
-		String status = "Product Addition Failed!";
+		String status = "Failed to Update Product Price!";
 				
 		Connection con = DBUtil.provideConnection();
 		

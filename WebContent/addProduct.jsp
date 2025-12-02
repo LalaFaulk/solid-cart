@@ -64,15 +64,15 @@
 							placeholder="Enter Product Name" name="name" class="form-control"
 							id="last_name" required>
 					</div>
-				<!--  Used to insert discounts when added to database -->
+					<!--  Used to insert discounts when added to database -->
 					<div class="col-md-6 form-group">
 					<!-- Drop down menu to allow only certain discounts -->
 						<label for="last_name">Product Discount</label> <select name="discount" id="pdiscount"
 						class="form-control" required>
-						<option value="thanksgiving">Thanksgiving (40% Off)</option>
-						<option value="clearance">Clearance (60% Off)</option>
 						<option value="none">None</option>
-						</select>>
+						<option value="thanksgiving">Thanksgiving</option>
+						<option value="clearance">Clearance</option>
+						</select>
 					</div>
 					
 					<div class="col-md-6 form-group">

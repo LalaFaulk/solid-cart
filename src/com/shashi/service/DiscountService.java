@@ -7,6 +7,8 @@ import com.shashi.beans.ProductBean;
 
 public interface DiscountService {
 	
+	public String addProduct(ProductBean newProduct, String discountType);
+	
 	public String updateProductPrice(String prodId, String discountType);
 	
 	public DiscountBean getProductDetails(String prodId);

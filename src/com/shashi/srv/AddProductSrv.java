@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.shashi.service.impl.ProductServiceImpl;
+import com.shashi.service.impl.DiscountServiceImpl;
 
 /**
  * Servlet implementation class AddProductSrv
@@ -46,6 +47,7 @@ public class AddProductSrv extends HttpServlet {
 		String prodName = request.getParameter("name");
 		String prodType = request.getParameter("type");
 		String prodInfo = request.getParameter("info");
+		String prodDiscount = request.getParameter("discount"); //
 		double prodPrice = Double.parseDouble(request.getParameter("price"));
 		int prodQuantity = Integer.parseInt(request.getParameter("quantity"));
 
@@ -56,9 +58,16 @@ public class AddProductSrv extends HttpServlet {
 		InputStream prodImage = inputStream;
 
 		ProductServiceImpl product = new ProductServiceImpl();
-
+		
 		status = product.addProduct(prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
-
+		
+		// StackOverFlow
+		String prodId = status.substring(status.lastIndexOf("P"));
+		
+		DiscountServiceImpl discount = new DiscountServiceImpl();
+		
+		status = discount.addProduct(product.getProductDetails(prodId), prodDiscount);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("addProduct.jsp?message=" + status);
 		rd.forward(request, response);
 
