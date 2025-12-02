@@ -47,8 +47,6 @@ public class UpdateProductSrv extends HttpServlet {
 
 		// Login success
 		
-		String status = null;
-
 		String prodId = request.getParameter("pid");
 		String prodName = request.getParameter("name");
 		
@@ -70,13 +68,7 @@ public class UpdateProductSrv extends HttpServlet {
 		// Sends status through DiscountServiceImpl instead of ProductServiceImpl
 		DiscountServiceImpl daoTwo = new DiscountServiceImpl();
 		
-		if (prodDiscount.equalsIgnoreCase("Thanksgiving")) {
-			status = daoTwo.updateProductPrice(prodId, prodDiscount);
-		} else if (prodDiscount.equalsIgnoreCase("Clearance")) {
-			status = daoTwo.updateProductPrice(prodId, prodDiscount);
-		} else if (prodDiscount.equalsIgnoreCase("None")) {
-			status = daoTwo.updateProductPrice(prodId, prodDiscount);
-		}
+		String status = daoTwo.updateProductPrice(prodId, prodDiscount);
 		
 		RequestDispatcher rd = request
 				.getRequestDispatcher("updateProduct.jsp?prodid=" + prodId + "&message=" + status);
