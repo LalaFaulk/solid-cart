@@ -5,19 +5,17 @@ import java.io.Serializable;
 public class DiscountBean implements Serializable {
 	
 	private String prodId;
-	private double prodDiscount;
-	private double regPrice;
-	private double salePrice;
+	private String discountType;
+	private double discountPercent;
 	
 	public DiscountBean() {
 	}
 	
-	public DiscountBean(String prodId, double prodDiscount, double regPrice, double salePrice) {
+	public DiscountBean(String prodId, String discountType, double discountPercent) {
 		super();
 		this.prodId = prodId;
-		this.prodDiscount = prodDiscount;
-		this.regPrice = regPrice;
-		this.salePrice = salePrice;
+		this.discountType = discountType;
+		this.discountPercent = discountPercent;
 	}
 	
 	public String getProdId() {
@@ -29,29 +27,20 @@ public class DiscountBean implements Serializable {
 	}
 	
 	
-	public double getProdDiscount() {
-		return prodDiscount;
+	public String getDiscountType() {
+		return discountType;
 	}
 	
-	public void setProdDiscount(double prodDiscount) {
-		this.prodDiscount = prodDiscount;
+	public void setDiscountType(String discountType) {
+		this.discountType = discountType;
 	}
 
-	
-	public double getRegPrice() {
-		return regPrice;
+	public double getDiscountPercent() {
+		return discountPercent;
 	}
 	
-	public void setRegPrice(double regPrice) {
-		this.regPrice = regPrice;
-	}
-	
-	public double getDiscountPrice() {
-		return salePrice;
-	}
-	
-	public void setDiscountPrice(double salePrice) {
-		this.salePrice = salePrice;
+	public void setDiscountPercent(double discountPercent) {
+		this.discountPercent = discountPercent;
 	}
 
 }
