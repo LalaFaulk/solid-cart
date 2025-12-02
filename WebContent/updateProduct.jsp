@@ -89,12 +89,12 @@
 						%>
 						<label for="last_name">Product Discount</label><select name="discount" id="last_name"
 						class="form-control" required>
+						<option value="none"
+						<%="none".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>None</option>
 						<option value="thanksgiving"
 						<%="thanksgiving".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>Thanksgiving</option>
 						<option value="clearance"
 						<%="clearance".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>Clearance</option>
-						<option value="none"
-						<%="none".equalsIgnoreCase(pdiscount) ? "selected" : ""%>>None</option>
 						</select>
 					</div>
 					
