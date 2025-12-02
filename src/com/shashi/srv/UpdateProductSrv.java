@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shashi.beans.ProductBean;
 import com.shashi.service.impl.ProductServiceImpl;
+import com.shashi.service.impl.DiscountServiceImpl;
 
 /**
  * Servlet implementation class UpdateProductSrv
@@ -45,9 +46,14 @@ public class UpdateProductSrv extends HttpServlet {
 		}
 
 		// Login success
+		
+		String status = null;
 
 		String prodId = request.getParameter("pid");
 		String prodName = request.getParameter("name");
+		
+		String prodDiscount = request.getParameter("discount"); // Added this here. Acts similarly to the lines around it.
+		
 		String prodType = request.getParameter("type");
 		String prodInfo = request.getParameter("info");
 		Double prodPrice = Double.parseDouble(request.getParameter("price"));
@@ -60,11 +66,18 @@ public class UpdateProductSrv extends HttpServlet {
 		product.setProdPrice(prodPrice);
 		product.setProdQuantity(prodQuantity);
 		product.setProdType(prodType);
-
-		ProductServiceImpl dao = new ProductServiceImpl();
-
-		String status = dao.updateProductWithoutImage(prodId, product);
-
+		
+		// Sends status through DiscountServiceImpl instead of ProductServiceImpl
+		DiscountServiceImpl daoTwo = new DiscountServiceImpl();
+		
+		if (prodDiscount.equalsIgnoreCase("Thanksgiving")) {
+			status = daoTwo.updateProductPrice(prodId, prodDiscount);
+		} else if (prodDiscount.equalsIgnoreCase("Clearance")) {
+			status = daoTwo.updateProductPrice(prodId, prodDiscount);
+		} else if (prodDiscount.equalsIgnoreCase("None")) {
+			status = daoTwo.updateProductPrice(prodId, prodDiscount);
+		}
+		
 		RequestDispatcher rd = request
 				.getRequestDispatcher("updateProduct.jsp?prodid=" + prodId + "&message=" + status);
 		rd.forward(request, response);
