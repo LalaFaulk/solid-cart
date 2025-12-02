@@ -40,19 +40,37 @@ DROP TABLE IF EXISTS `shopping-cart`.`discount` ;
 
 CREATE TABLE IF NOT EXISTS 	`shopping-cart`.`discount` (
 	`prodid` VARCHAR(45) NOT NULL,
-    `pdiscount` DECIMAL(3,2) NULL DEFAULT NULL,
-    `regprice` DECIMAL(12,2) NULL DEFAULT NULL,
-    `saleprice` DECIMAL(12,2) NULL DEFAULT NULL,
+    `type` ENUM('None', 'Thanksgiving', 'Clearance') NOT NULL DEFAULT 'None' COLLATE utf8mb4_general_ci,
+    `percent` DECIMAL(3,2) NOT NULL DEFAULT 0.0,
+    `regprice` DECIMAL(12,2) NOT NULL,
     PRIMARY KEY (`prodid`),
+    INDEX `productid_idx` (`prodid` ASC) VISIBLE,
     CONSTRAINT `pid`
 		FOREIGN KEY (`prodid`)
         REFERENCES `shopping-cart`.`product` (`pid`)
         ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        ON UPDATE NO ACTION
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+DELIMITER //
+CREATE TRIGGER check_discount
+BEFORE UPDATE ON discount
+FOR EACH ROW
+BEGIN
+	IF (NEW.`type` <> OLD.`type` AND NEW.`type` = 'Thanksgiving') THEN
+		SET NEW.`percent` = 0.4;
+	END IF;
+	IF (NEW.`type` <> OLD.`type` AND NEW.`type` = 'Clearance') THEN
+		SET NEW.`percent` = 0.6;
+	END IF;
+    IF (NEW.`type` <> OLD.`type` AND NEW.`type` = 'None') THEN
+		SET NEW.`percent` = 0.0;
+	END IF;
+END;
+// DELIMITER ;
 
 -- -----------------------------------------------------
 -- Table `shopping-cart`.`orders`
@@ -208,6 +226,15 @@ INSERT INTO `shopping-cart`.`product` (`pid`, `pname`, `ptype`, `pinfo`, `pprice
 
 COMMIT;
 
+
+-- -----------------------------------------------------
+-- Data for table `shopping-cart`.`discount`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `shopping-cart`;
+INSERT INTO `shopping-cart`.`discount` (`prodid`, `regprice`) SELECT `pid`, `pprice` FROM `shopping-cart`.`product`;
+
+COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `shopping-cart`.`orders`
