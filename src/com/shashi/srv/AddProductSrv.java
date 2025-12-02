@@ -61,7 +61,7 @@ public class AddProductSrv extends HttpServlet {
 		
 		status = product.addProduct(prodName, prodType, prodInfo, prodPrice, prodQuantity, prodImage);
 		
-		// StackOverFlow
+		// Code based on: https://stackoverflow.com/questions/14316487/java-getting-a-substring-from-a-string-starting-after-a-particular-character
 		String prodId = status.substring(status.lastIndexOf("P"));
 		
 		DiscountServiceImpl discount = new DiscountServiceImpl();
