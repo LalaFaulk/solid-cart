@@ -66,7 +66,7 @@
 	<div class="container" style="background-color: #E6F9E6;">
 		<div class="row text-center">
 
-			<%
+			<%			
 			for (ProductBean product : products) {
 			%>
 			<div class="col-sm-4" style='height: 350px;'>
@@ -79,10 +79,8 @@
 						)
 					</p>
 					<p class="productinfo"><%=product.getProdInfo()%></p>
-					<p class="price">
-						Rs
-						<%=product.getProdPrice()%>
-					</p>
+					<p class="price">Rs <%=product.getProdPrice()%></p>
+					
 					<form method="post">
 						<button type="submit"
 							formaction="./RemoveProductSrv?prodid=<%=product.getProdId()%>"
