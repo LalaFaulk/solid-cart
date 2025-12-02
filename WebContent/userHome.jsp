@@ -64,6 +64,7 @@
 			<%
 			for (ProductBean product : products) {
 				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
+				double discountPrice = new DiscountServiceImpl().getRegularPrice(product.getProdId());
 			%>
 			<div class="col-sm-4" style='height: 350px;'>
 				<div class="thumbnail">
@@ -77,10 +78,26 @@
 					%>
 					<p class="productinfo"><%=description%>..
 					</p>
+					<!-- Display of original and discounted price inspired by Kevin's design -->
+					<%
+					if (discountPrice == product.getProdPrice()) {
+					%>
 					<p class="price">
 						Rs
 						<%=product.getProdPrice()%>
 					</p>
+					<% } else if (discountPrice != product.getProdPrice()) { %>
+					<!-- Reference for style code: https://www.w3schools.com/cssref/pr_text_text-decoration.php -->
+					<p class="price" style='text-decoration: line-through; color: grey; font-size: 13px;'>Rs
+						<%=discountPrice%>
+					</p>
+						<p class="price">
+							Rs
+							<%=product.getProdPrice()%>
+						</p>
+					<%
+					}
+					%>
 					<form method="post">
 						<%
 						if (cartQty == 0) {
