@@ -126,4 +126,33 @@ public class DiscountServiceImpl implements DiscountService {
 		
 	}
 	
+	public double getRegularPrice(String prodId) {
+		double price = 0;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement("select * from discount where prodid=?");
+			
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				price = rs.getDouble("regprice");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return price;
+		
+	}
+	
 }

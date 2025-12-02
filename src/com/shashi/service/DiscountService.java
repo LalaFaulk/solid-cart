@@ -12,5 +12,7 @@ public interface DiscountService {
 	public String updateProductPrice(String prodId, String discountType);
 	
 	public DiscountBean getProductDetails(String prodId);
+	
+	public double getRegularPrice(String prodId);
 			
 }
