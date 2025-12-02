@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.shashi.beans.DiscountBean;
+
 import com.shashi.service.DiscountService;
 import com.shashi.utility.DBUtil;
 
@@ -49,6 +51,40 @@ public class DiscountServiceImpl implements DiscountService {
 		DBUtil.closeConnection(ps);
 
 		return status;
+	}
+	
+	@Override
+	public DiscountBean getProductDetails(String prodId) {
+		DiscountBean discount = null;
+		
+		Connection con = DBUtil.provideConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			ps = con.prepareStatement("select * from discount where pid=?");
+			
+			ps.setString(1, prodId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				discount = new DiscountBean();
+				discount.setProdId(rs.getString(1));
+				discount.setDiscountType(rs.getString(2));
+				discount.setDiscountPercent(rs.getDouble(3));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		DBUtil.closeConnection(con);
+		DBUtil.closeConnection(ps);
+		
+		return discount;
+		
 	}
 	
 }
