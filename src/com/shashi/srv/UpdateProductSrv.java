@@ -65,10 +65,15 @@ public class UpdateProductSrv extends HttpServlet {
 		product.setProdQuantity(prodQuantity);
 		product.setProdType(prodType);
 		
-		// Sends status through DiscountServiceImpl instead of ProductServiceImpl
+		// Added back some code that was originally there. Sends update through both files.
+		
+		ProductServiceImpl dao = new ProductServiceImpl();
+		
+		String status = dao.updateProductWithoutImage(prodId, product);
+	
 		DiscountServiceImpl daoTwo = new DiscountServiceImpl();
 		
-		String status = daoTwo.updateProductPrice(prodId, prodDiscount);
+		status = daoTwo.updateProductPrice(prodId, prodDiscount);
 		
 		RequestDispatcher rd = request
 				.getRequestDispatcher("updateProduct.jsp?prodid=" + prodId + "&message=" + status);
