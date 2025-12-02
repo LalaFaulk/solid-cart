@@ -64,7 +64,7 @@ public class DiscountServiceImpl implements DiscountService {
 		
 		try {
 			
-			ps = con.prepareStatement("select * from discount where pid=?");
+			ps = con.prepareStatement("select * from discount where prodid=?");
 			
 			ps.setString(1, prodId);
 			rs = ps.executeQuery();
@@ -74,6 +74,7 @@ public class DiscountServiceImpl implements DiscountService {
 				discount.setProdId(rs.getString(1));
 				discount.setDiscountType(rs.getString(2));
 				discount.setDiscountPercent(rs.getDouble(3));
+				discount.setRegularPrice(rs.getDouble(4));
 			}
 			
 		} catch (SQLException e) {
