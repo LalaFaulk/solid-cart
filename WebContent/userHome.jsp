@@ -65,9 +65,36 @@
 			for (ProductBean product : products) {
 				int cartQty = new CartServiceImpl().getCartItemCount(userName, product.getProdId());
 				double discountPrice = new DiscountServiceImpl().getRegularPrice(product.getProdId());
+				
+				DiscountBean discountProduct = new DiscountServiceImpl().getProductDetails(product.getProdId());
 			%>
 			<div class="col-sm-4" style='height: 350px;'>
 				<div class="thumbnail">
+				<%
+				if (discountProduct.getDiscountType().equalsIgnoreCase("Thanksgiving")) {
+				%>
+					<!-- https://www.w3schools.com/howto/howto_css_badge.asp (Based on Kevin's design, not exact design replication) -->
+					<span style='font-weight: bold; color: red;'>THANKSGIVING SALE
+					<!-- https://www.geeksforgeeks.org/java/5-ways-to-convert-double-to-integer-in-java/ (to properly cast double to int) --> 
+					<%
+					double percent = discountProduct.getDiscountPercent() * 100;
+					int roundedPercent = (int) percent;
+					%>
+					<%=roundedPercent%>% OFF!</span>
+				<%
+				} else if (discountProduct.getDiscountType().equalsIgnoreCase("Clearance")) {
+				%>
+					<!-- https://www.w3schools.com/howto/howto_css_badge.asp (Based on Kevin's design, not exact design replication) -->
+					<span style='font-weight: bold; color: red;'>CLEARANCE SALE
+					<!-- https://www.geeksforgeeks.org/java/5-ways-to-convert-double-to-integer-in-java/ (to properly cast double to int) --> 
+					<%
+					double percent = discountProduct.getDiscountPercent() * 100;
+					int roundedPercent = (int) percent;
+					%>
+					<%=roundedPercent%>% OFF!</span>
+				<%
+				}
+				%>
 					<img src="./ShowImage?pid=<%=product.getProdId()%>" alt="Product"
 						style="height: 150px; max-width: 180px">
 					<p class="productname"><%=product.getProdName()%>
