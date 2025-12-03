@@ -90,7 +90,8 @@
 				CartServiceImpl cart = new CartServiceImpl();
 				List<CartBean> cartItems = new ArrayList<CartBean>();
 				cartItems = cart.getAllCartItems(userName);
-				double beforeDiscount = 0; //
+				double beforeDiscount = 0;
+				double runningDiscount = 0;
 				double totAmount = 0;
 				for (CartBean item : cartItems) {
 
@@ -106,6 +107,8 @@
 					if (regularPrice != product.getProdPrice()) {
 						beforeDiscount = (regularPrice - product.getProdPrice()) * prodQuantity; 
 					}
+					
+					runningDiscount += beforeDiscount;
 
 					totAmount += currAmount;
 
@@ -141,7 +144,7 @@
 				<tr style="background-color: green; color: white;">
 					<td colspan="6" style="text-align: center;">Amount Saved (Thanksgiving Sale)</td>
 				<!-- Note: should fix decimal format -->			
-					<td>- <%=beforeDiscount%>
+					<td>- <%=runningDiscount%>
 				</tr>
 
 				<tr style="background-color: grey; color: white;">
