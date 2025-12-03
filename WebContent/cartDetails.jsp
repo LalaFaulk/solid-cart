@@ -84,12 +84,13 @@
 			<tbody
 				style="background-color: white; font-size: 15px; font-weight: bold;">
 
-
+				<!-- Method to find amount saved, may be inspired by Kevin's implementation -->
 
 				<%
 				CartServiceImpl cart = new CartServiceImpl();
 				List<CartBean> cartItems = new ArrayList<CartBean>();
 				cartItems = cart.getAllCartItems(userName);
+				double beforeDiscount = 0; //
 				double totAmount = 0;
 				for (CartBean item : cartItems) {
 
@@ -98,8 +99,13 @@
 					int prodQuantity = item.getQuantity();
 
 					ProductBean product = new ProductServiceImpl().getProductDetails(prodId);
+					double regularPrice = new DiscountServiceImpl().getRegularPrice(prodId);
 
 					double currAmount = product.getProdPrice() * prodQuantity;
+					
+					if (regularPrice != product.getProdPrice()) {
+						beforeDiscount = (regularPrice - product.getProdPrice()) * prodQuantity; 
+					}
 
 					totAmount += currAmount;
 
@@ -131,6 +137,12 @@
 				}
 				}
 				%>
+				<!-- Cart details partly based on Kevin's design -->
+				<tr style="background-color: green; color: white;">
+					<td colspan="6" style="text-align: center;">Amount Saved (Thanksgiving Sale)</td>
+				<!-- Note: should fix decimal format -->			
+					<td>- <%=beforeDiscount%>
+				</tr>
 
 				<tr style="background-color: grey; color: white;">
 					<td colspan="6" style="text-align: center;">Total Amount to
