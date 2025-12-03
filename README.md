@@ -1,158 +1,63 @@
-# Online Shopping Cart (E-Commerce Website)
-- Youtube Video for introduction, demo and setup for this Project: https://www.youtube.com/watch?v=RgQG0_orFpM
-<!-- - YouTube video for step by step local setup of similar project: https://www.youtube.com/watch?v=mLFPodZO8Iw&t=8s -->
-<!-- Live site url: https://ellisonelectronics.herokuapp.com -->
-This is an E-Commerce Website build for selling of any electronics products online.
+# e-Shopping Cart
 
-### About
+### About:
 
-In this projects a user can visit the websites, registers and login to the website. They can check all the products available for shopping, filter and search item based on different categories, and then add to cart. They can add multiple item to the cart and also plus or minus the quantity in the cart. Once the cart is updated, the user can proceed to checkout and click the credit card payment details to proceed. Once the payment is success the orders will be placed and users will be able to see the orders details in the orders section along with the shipping status of the product.
+This project builds on the code provided at: https://github.com/shashirajraja/shopping-cart. This implementation adds a brand new product line and allows discounts (of certain types) to be added to products. When updating an existing product, the user can now add a discount from a list of options. They can also add products to the new product line or category. The new category was also added to the drop down menu so the user can navigate to the new products. In the user's cart, they are told of the amount of money they have saved.
 
-The admin also plays an important role for this project as the admin is the one responsible for adding any product to the store, updating the items, removing the item from the store as well as managing the inventory. The admin can see all the product orders placed and also can mark them as shipped or delivered based on the conditions.
+Changes to the SQL were also implemented. A discount table was added to the database and is used for handling most or all of these new feeatures.
 
-One of the best functionality that the projects include is mailing the customers, so once a user registers to the website, they will recieve a mail for the successful registration to the website, and along with that whenever a user orders any product or the product got shipped from the store, then the user will also receive the email for its confirmation.
-Sometimes, if the user tried to add any item which is out of stock, them they will get an email one the item is available again the stock.
 
-Note: The payment page is created only for demo purpose and its not fully integrated with any payment gateway. So for now any credit card details will be accepted and the demo orders will be placed.
 
-## Highlights :--
+### SOLID AND DESIGN PATTERNS
 
-### The users will get a mail to their registered mail Id during:-
-- New User Registration
-- Order Successfully Placed
-- The Item was out of stock while exploring but now it got available in the store
-- Successful shipment and delivery of the Item
+This project tries to avoid too much hard-coding of the changes. In the previous project, most information was hard coded. For example, to apply the discount to the products, the ProductBean.java file itself was changed to apply this new element. 
 
-### Technologies used:-
-1. Front-End Development:
-- HTML
-- CSS
-- Javascript
-- BootStrap
+One way of addressing an issue with the previous implementation, I created a brand new tabble (discount) and created the corresponding DiscountService.java and DiscountServiceImpl.java files. Now, despite my changes, I'm not sure all the conditions of SOLID was met. I doubt it. However, trying to think in this way did help me. For instance, I had trouble when trying to focus on this principle and it took a lot of tinkering to get to the point I'm at now. One way of getting over some troubles was trying to keep the Single Responsibility Principle in mind. I think the biggest way I applied this was by moving some of the responsibility of the DiscountService and/or the DiscountServiceImpl files to the SQL file. For instance, the code for the trigger is an easier way of handling the changes to the new table, rather than creating and implementing more methods in the DiscountService and DiscountServiceImpl files.
 
-2. Back-End Development:
-- Java [JDK 8+]
-- JDBC
-- Servlet
-- JSP
+Another SOLID principle that may have been applied is the Open/Closed principle. For example, for my DiscountService and DiscountServiceImpl files, I was able to extend the behavior and add more methods for when I needed to get information from the classes in some of the .jsp files. 
 
-3. Database:
-- MySql
+As for design patterns, I'm aware that we're supposed to implement the discounts using the Strategy pattern. When creating this implementation, I mostly focused on attempting have the software be more SOLID. So I don't think I actually implemented this particular pattern and can't say I know for certain which patterns I did apply, if I applied any.
 
-### ================ Software And Tools Required ================
-- : Git [https://www.youtube.com/watch?v=gv7VPQ4LZ7g]
-- : Java JDK 8+ [https://www.youtube.com/watch?v=O9PWH9SeTTE]
-- : Eclipse EE (Enterprise Edition) [https://www.youtube.com/watch?v=8aDsEV7txXE]
-- : Apache Maven [https://www.youtube.com/watch?v=jd2zx3dLjuw]
-- : Tomcat v8.0+ [https://youtu.be/mLFPodZO8Iw?t=903]
-- : MySQL Server [https://www.youtube.com/watch?v=Ydh5jYA6Frs]
-- : MySQL Workbench [https://www.youtube.com/watch?v=t79oCeTXHwg]
 
-### ================= Dummy Database Initialization =================
-STEP 1: Open MySQL Command Prompt or MySQL Workbench
+### Tutorial:
 
-STEP 2: Login to the administrator user of MySql:
-	 ```mysql -u <username> -p``` (Enter Password if asked)
+Make sure all relevant technologies are downloaded. Extract any ZIP files as needed.
 
-STEP 3: Copy paste and execute the MySQL Query from the following file:-
-- Run the Sql Query From this file: [databases/mysql_query.sql](./databases/mysql_query.sql)
+1. Create a new Workspace in Eclipse EE.
+2. Clone this GitHub repository (see step 2 on "Importing and Running The Project Through Eclipse EE" in the original repository to explain how this is done).
+3. Follow the steps outlined in the original repository to create the database.
+4. Follow the steps outlined in the original repository address the mailing function.
+5. Download the "application.properties" file at: https://github.com/shashirajraja/shopping-cart/blob/master/src/application.properties. Insert this file into
+the "src" folder of your project. This should avoid the error detailed here by ChatGPT: https://chatgpt.com/c/691d2db4-eaec-8328-ac2f-24fb1b489499.
+6. Follow steps 3 through 11 outlined in the original repository (under the header "Importing and Running The Project Through Eclipse EE") as needed.
 
-### ======GENERATING GMAIL APP PASSWORD [For Mailing Functionalities]========
-Step 1: Create a gmail account or login to existing account in any browser
 
-Step 2 : Go to [https://myaccount.google.com/security](https://myaccount.google.com/security) and check if 2 step verifications is enabled or not, enable it if not enabled
 
-Step 3: Go to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and enter password if asked
+## Credit:
 
-Step 4: In Select an App Section: select Other (custom name) => enter "Ellison Electronics" => Generate
-
-Step 5: After that it will generate 16 digits app password which you need to copy and save for future configurations.
-
-Step 6: Done : Now continue to importing the project. [Don't share the above password generated to anyone]
-
-### ========== Importing and Running The Project Through Eclipse EE ==========
-
-Step 1: Open Eclipse Enterprise Edition. [Install, if not already installed.]
-
-Step 2: Click On File > Import > Git > Projects From Git > Clone Uri > Paste The Repository Url as: ```https://github.com/shashirajraja/shopping-cart.git```> Select master Branch > Next > Next > Finish.
-
-Step 3: Go inside ```Java Resources > src > application.properties``` and update the values as below:
-- a) Update value for db.username and db.password according to your installed mysql credentials.
-- b) Update value for mailer.email and mailer.password, with the same email and app password that you generated earlier in above section [ NOTE:Actual gmail password will not work]
-
-Step 4: Right Click on Project > Run as > Maven Build > In the goals field enter "clean install" > apply > run
-
-Step 5: Right Click On Project > Build Path > Configure Build Path > Libraries > Remove and Update Any Libraries if Red Mark Exists > Finish.
-
-Step 6: Right Click on Project > maven > update project > select force update > apply > close
-
-Step 7: Tomcat Configurations:
-- If Tomcat Server is not configured in Eclipse :
-	-  Right Click On Project > Run As > Run On Server > Manually Define a new server > Select server type > select Tomcat v8.0+ > (Select Tomcat V8.0+ Installation Location If Asked) > Next > Add the current project > Finish.
-
-- Else If Tomcat Server is already configured in Eclipse:
-	- Right Click On Project > Run As > Run On Server > Select Tomcat Version > Next > Add the project > Finish.
-		<p align='center'>or</p>
-	- You can directly goto server tab, select the tomcat server and use the debug or run button to start the previously ran project
-
-Step 8: Check Running The Site At  [http://localhost:8080/shopping-cart/](http://localhost:8080/shopping-cart/)
-
-Step 9:  [To Change the Port, if getting error like 'port already in use'] Open The Server Tab > Double Click On Tomcat Server > Ports > Change The Port Number For Http/1.1 To 8083 > Close And Save. Now Start and you can access the project on [http://localhost:8083/shopping-cart/](http://localhost:8083/shopping-cart/)
-
-Step 10: Default Username And Password For Admin Is "admin@gmail.com" And "admin"
-
-Step 11: The default Username And Password For User Is "guest@gmail.com" And "guest"
-
-## FAQ
-**Question:1** Unable to Connect to Database?
-
-**Answer:** Please check you have installed the mysql correctly and have updated the correct db details in application.properties file. Also you can try doing maven clean install and force update the project and restart.
-<hr>
-
-Note:- This is a Sample Project for learning purpose, we have not much considered of web security.
-
-#### Some Screenshots for the project:
-- Home Page
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/6161fb90-ac83-445d-9fb2-56681f6a52b4)
-- Login Page
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/c5451416-a669-4d76-ad84-9b8ea26bf6b4)
-- Register Page
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/19f06ec9-70aa-4700-8846-a2e6514d88c2)
-- Category Wise Product Filter
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/757e552c-1526-4142-869b-ffbf27a232e0)
-- Cart Items
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/12963112-1276-49ca-8b9c-f3272c6b9b7b)
-- Credit Card Payment
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/990595ce-856c-46fe-8182-052a127d67b4)
-- Order Details & Status
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/db8b4511-cac0-41df-930a-ef3bdebe5c24)
-- User Profile
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/aa22b0cd-726b-4e5c-85cd-5409b7fc5391)
-
-- Admin Home
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/0e909800-b9a2-4ece-884c-24cdc8ca931a)
-- Stock Items
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/e94e519b-e65c-4f51-8b37-e1b555208f2d)
-- Shipped Items
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/e34de1d9-91ae-4d3b-a38e-7d78aae1f410)
-- Recent Orders yet to be shipped
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/ed2df621-3256-41bd-8739-d3872474403c)
-- Add Product to the stock
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/3f38b7cf-c120-4523-abec-cdb2238c17b0)
-- Remove Product from the stock
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/1e9c6565-6a14-4cb3-834e-8d7f5d273927)
-- Update the stock item
-![image](https://github.com/shashirajraja/shopping-cart/assets/34605595/1529a9a7-19a3-4381-ac58-29dbc55229d9)
-- Sample Email for order placed
-<img width="404" alt="image" src="https://github.com/shashirajraja/shopping-cart/assets/34605595/cb60c616-c32c-42eb-abe5-494d8574c09a">
-
-- Class Diagram
-<img width="589" alt="image" src="https://github.com/shashirajraja/shopping-cart/assets/34605595/d6dbfdb9-5108-4071-b4b6-d055f0370acd">
-
-#### "Suggestions and project improvement ideas are welcomed!"
-
-<bold>Thanks a lot,</bold><br/>
-                                                                                                        Project Leader<br/>
-                                                                                                         <b>Shashi Raj</b>
-
+- Code and design based on that provided by Kevin Do at: https://github.com/DBasss/E-Commerce-Shopping-Cart-Enhancement
+- Code and design extends that provided by Shashi Raj at: https://github.com/shashirajraja/shopping-cart
+- Used to help in SQL code: https://www.geeksforgeeks.org/mysql/mysql-update-join/
+- Used to help in SQL code: https://www.geeksforgeeks.org/mysql/update-one-table-with-another-tables-values-in-mysql/
+- Used to help in SQL code: https://stackoverflow.com/questions/56704456/creating-table-with-multiple-check-constraints-on-a-column
+- Used to help in SQL code: https://www.tutorialspoint.com/how-can-i-insert-default-value-in-mysql-enum-data-type
+- Used to help in SQL code: https://www.google.com/search?q=mysql+update+using+select+w3schools&rlz=1C1ONGR_enUS1088US1088&oq=mysql+update+using+select+w3schools&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigAdIBCDk3MzZqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+- Used to help in SQL code (I just cited the whole tutorial instead of each individual page): https://www.w3schools.com/mysql/default.asp
+- Used to help in SQL code: https://stackoverflow.com/questions/456644/mysql-syntax-error-message-operand-should-contain-1-columns
+- Used to help in SQL code: https://stackoverflow.com/questions/33101276/using-case-to-update-column-value-depending-on-other-column-values
+- Used to help in SQL code: https://dev.mysql.com/doc/refman/5.7/en/enum.html#enum-literals
+- Used to help in SQL code: https://stackoverflow.com/questions/14847702/multiple-if-statements-in-mysql-trigger
+- Used to help in SQL code: https://community.spiceworks.com/t/mysql-trigger-with-multiple-if-conditions/626315/3
+- Used to help in SQL code: https://stackoverflow.com/questions/63690814/mysql-trigger-creation-executes-without-syntax-error-but-no-trigger-created-oth
+- Used to help in SQL code: https://stackoverflow.com/questions/14268881/assigning-column-value-in-trigger-causes-unknown-system-variable-error
+- Used to help in SQL code: https://stackoverflow.com/questions/14316487/java-getting-a-substring-from-a-string-starting-after-a-particular-character
+- Used to help in SQL code: https://dev.mysql.com/doc/refman/8.4/en/begin-end.html
+- Used to help in SQL code: https://stackoverflow.com/questions/67889347/mysql-trigger-with-multiple-if-statements
+- Used to help in SQL code: https://www.tutorialspoint.com/mysql/mysql-check-constraints.htm
+- Used to help in SQL code: https://www.w3resource.com/mysql/mysql-triggers.php
+- Used to help in SQL code: https://www.geeksforgeeks.org/mysql/mysql-after-update-trigger/
+- Used to help in SQL code: https://stackoverflow.com/questions/36955718/mysql-update-with-select-from-another-table
+- This may have been from when I had an error on a query: https://stackoverflow.com/questions/8084571/not-unique-table-alias
+- Used to help in SQL code: https://stackoverflow.com/questions/5372872/mysql-trigger-if-condition-exists
+- Error in compiling .jsp (didn't really use, though it may have inspired the idea that I used to fix the actual error): https://support.atlassian.com/confluence/kb/unable-to-compile-class-for-jsp/
 
